@@ -7,7 +7,7 @@
         <option value="DOING">DOING</option>
         <option value="TODO">TODO</option>
       </select>
-      <button v-if="getUserInformationEntered.rol != 'User'" @click="del()" class="delete">
+      <button v-if="(getUserInformationEntered.rol == 'Admin' )" @click="deleteWork()" class="delete">
         del
       </button>
     </section>
@@ -35,13 +35,29 @@ export default {
     works: {
       type: Object,
     },
+    userId:{
+      type:Number ,
+    }
   },
   computed:{
-      ...mapGetters(['getUserInformationEntered'])
+      ...mapGetters(['getUserInformationEntered','getAllUsers'])
   },
   methods:{
       whoisChange(){
           this.works.lastChengeBy=this.getUserInformationEntered.fullname
+      },
+      deleteWork(){
+        let workId= this.works.id;
+        let userId= this.userId;
+        let work =''
+        let user = this.getAllUsers.filter((elem)=>elem.id == userId);
+        user[0].works.forEach((element,index) => {
+          if (element.id == workId) {
+            work=index
+          }
+        });
+        user[0].works.splice (work, 1)
+        
       }
   }
 };
