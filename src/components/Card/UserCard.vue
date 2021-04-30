@@ -3,12 +3,12 @@
     <div :class="`rol-${userInformation.rol}`">{{ userInformation.rol }}</div>
     <div class="nameandadd">
       <p class="name">{{ userInformation.fullname }}</p>
-      <button @click="openModalAddWork = true" class="addWork">
+      <button :disabled="getUserInformationEntered.rol=='User'" @click="openModalAddWork = true" class="addWork">
         <img src="../../assets/plus.png" width="20" height="20" />
       </button>
     </div>
     <div class="work">
-      <work-card v-for="work in dataa" :key="work.id" :works="work"></work-card>
+      <work-card v-for="work in dataa" :key="work.id" :works="work" :userId="userInformation.id"></work-card>
     </div>
     <div v-if="openModalAddWork" class="ModalAddWork">
       <div class="addWorkBox">
