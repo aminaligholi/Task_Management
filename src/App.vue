@@ -1,21 +1,21 @@
 <template>
   <div id="app">
-  <router-view></router-view>
+    <header_com class="header"></header_com>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-
+import header_com from "./components/header/header_com.vue";
 export default {
-  name: 'App',
-   watch: {
-      '$route' (to) {
-        document.title = to.meta.title || 'Your Website'
-      }
-    },
-}
+  components: { header_com },
+  name: "App",
+};
 </script>
 
 <style scoped>
+.header{
+  position:fixed;
+}
 
 </style>

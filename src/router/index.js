@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter)
 
 import loginPage from '../pages/loginPage.vue'
+import homePage from '../pages/homePage.vue'
 
 
 
@@ -18,7 +19,18 @@ function auth(to){
         component:loginPage,
         name:'login',
         meta:{
-            title:'hi',
+            title:'login',
+            headerType:'Title'
+        }
+      
+    },
+    {
+        path:'/homePage',
+        component:homePage,
+        name:'home',
+        meta:{
+            title:'homePage',
+            headerType:'Menu'
         }
       
     }
@@ -28,13 +40,15 @@ export const router = new VueRouter({
     routes,
     mode:'history'
   })
-  router.beforeEach((to, from, next) => {
-    let auuth =auth(to)
-    console.log(to);
-    document.title= to.meta.title?to.meta.title:'Task-Management'
-   if(auuth){
+   router.beforeEach((to, from, next) => {
+    let Authentication =auth(to);
+    store.state.headerType=to.meta.headerType;
+    console.log( store.state.headerType);
+    console.log( to.meta.headerType);
+    document.title= to.meta.title?to.meta.title:'Task-Management';
+   if(Authentication){
        next();
    }else{
-       router.push('/login')
+       next({name:'login'})
    }
   })
